@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "IotHubs_VirtualRealityandIoT_name": {
+            "value": null
+        },
+        "namespaces_VirtualRealityandIoT_name": {
+            "value": null
+        },
+        "topics_virtualrealityandiot_name": {
+            "value": null
+        },
+        "AuthorizationRules_RootManageSharedAccessKey_name": {
+            "value": null
+        },
+        "subscriptions_virtualrealityandiot_name": {
+            "value": null
+        }
+    }
+}
