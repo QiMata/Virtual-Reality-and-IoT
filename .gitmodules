@@ -1,0 +1,3 @@
+[submodule "src/Unity/VirtualRealityandIoT/Library/SignalRUnity"]
+	path = src/Unity/VirtualRealityandIoT/Library/SignalRUnity
+	url = https://github.com/NVentimiglia/SignalR-Unity3d.git

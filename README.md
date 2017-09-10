@@ -1,7 +1,7 @@
 # Virtual-Reality-and-IoT
 
 <a href="https://azuredeploy.net/" target="_blank"><img src="http://azuredeploy.net/deploybutton.png"/></a>
-<a href="https://www.qimata.com/wp-content/uploads/2017/03/Azure-IoT-Stream-Analytics-SignalR-.pptx" target="_blank"><img src="https://www.qimata.com/wp-content/uploads/2017/09/PowerPoint.png" height="60" width="60" /></a>
+<a href="https://www.qimata.com/wp-content/uploads/2017/03/Azure-IoT-Stream-Analytics-SignalR-.pptx" target="_blank"><img src="https://www.qimata.com/wp-content/uploads/2017/09/PowerPoint.png" /></a>
 
 # Resources
 
@@ -25,9 +25,13 @@
 
 <a href="https://unity3d.com/learn">Unity Documentation</a>
 
+# Equipment
+
+
+
 # Special Thanks
 
-A special thanks to the <a href="https://github.com/oising/nivot.signalr.client.net35">SignalR client port for .NET 3.5, for v1.x and v2.x SignalR server</a>
+A special thanks to the <a href="https://github.com/NVentimiglia/SignalR-Unity3d">SignalR Client for .NET 2.0</a> for makin a SignalR solution that works for Unity3d
 
 # Abstract
 
@@ -35,7 +39,10 @@ Whether it’s called mixed reality, augmented reality, or virtual reality; changi
 
 # Description
 
-Using IoT Devices, powered by Windows 10 IoT and Raspian, we can collect data from the world surrounding us. That data can be used to create interactive environments for mixed reality, augmented reality, or virtual reality. To move the captured data from the devices to the interactive environment, the data will travel through Microsoft’s Azure. First it will be ingested through the Azure IoT Hub. The IoT Hub provides the security, bi-directional communication, and input rates needed for the solution. We will move the data directly from the IoT Hub to an Azure Service Bus Topic. The Topic allows for data to be sent to every Subscription listening for the data that was input. Azure Web Apps subscribe to the Topics and forward the data through a SignalR Hub that forwards the data to a client. For this demo, the client is a Unity Application that creates a Virtual Reality simulation showcasing that data. 
+Using IoT Devices, powered by Windows 10 IoT and Raspian, we can collect data from the world surrounding us. That data can be used to create interactive environments for mixed reality, augmented reality, or virtual reality. To move the captured data from the devices to the interactive environment, the data will travel through Microsoft’s Azure. 
+
+First it will be ingested through the Azure IoT Hub. The IoT Hub provides the security, bi-directional communication, and input rates needed for the solution. We will move the data directly from the IoT Hub to an Azure Service Bus Topic. The Topic allows for data to be sent to every Subscription listening for the data that was input. Azure Web Apps subscribe to the Topics and forward the data through a SignalR Hub that forwards the data to a client. For this demo, the client is a Unity Application that creates a Virtual Reality simulation showcasing that data. 
+
 Once finished with this introduction to these technologies, utilizing each component of this technology stack should be approachable. Before seeing the pieces come together, the technologies used in this demonstration may not seem useful to a developer. When combined, they create a powerful tool to share nearly unlimited amounts of incoming data across multiple channels.
 
 

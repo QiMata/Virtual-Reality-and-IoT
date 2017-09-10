@@ -1,0 +1,233 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "IotHubs_VirtualRealityandIoT_name": {
+            "defaultValue": "VirtualRealityandIoT",
+            "type": "String"
+        },
+        "namespaces_VirtualRealityandIoT_name": {
+            "defaultValue": "VirtualRealityandIoT",
+            "type": "String"
+        },
+        "topics_virtualrealityandiot_name": {
+            "defaultValue": "virtualrealityandiot",
+            "type": "String"
+        },
+        "AuthorizationRules_RootManageSharedAccessKey_name": {
+            "defaultValue": "RootManageSharedAccessKey",
+            "type": "String"
+        },
+        "subscriptions_virtualrealityandiot_name": {
+            "defaultValue": "virtualrealityandiot",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourceGroups/VirtualRealityandIoT/providers/Microsoft.Devices/IotHubs/VirtualRealityandIoT'.",
+            "type": "Microsoft.Devices/IotHubs",
+            "sku": {
+                "name": "S1",
+                "tier": "Standard",
+                "capacity": 1
+            },
+            "name": "[parameters('IotHubs_VirtualRealityandIoT_name')]",
+            "apiVersion": "2016-02-03",
+            "location": "eastus2",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "operationsMonitoringProperties": {
+                    "events": {
+                        "None": "None",
+                        "Connections": "None",
+                        "DeviceTelemetry": "None",
+                        "C2DCommands": "None",
+                        "DeviceIdentityOperations": "None",
+                        "FileUploadOperations": "None",
+                        "Routes": "None"
+                    }
+                },
+                "ipFilterRules": [],
+                "eventHubEndpoints": {
+                    "events": {
+                        "retentionTimeInDays": 1,
+                        "partitionCount": 4,
+                        "partitionIds": [
+                            "0",
+                            "1",
+                            "2",
+                            "3"
+                        ],
+                        "path": "[concat(parameters('IotHubs_VirtualRealityandIoT_name'),'virtualrealityandiot', parameters('IotHubs_VirtualRealityandIoT_name'))]",
+                        "endpoint": "sb://iothub-ns-virtualrea-216091-b5b15ae4fa.servicebus.windows.net/"
+                    },
+                    "operationsMonitoringEvents": {
+                        "retentionTimeInDays": 1,
+                        "partitionCount": 4,
+                        "partitionIds": [
+                            "0",
+                            "1",
+                            "2",
+                            "3"
+                        ],
+                        "path": "[concat(parameters('IotHubs_VirtualRealityandIoT_name'),'virtualrealityandiot-operationmonitoring')]",
+                        "endpoint": "sb://iothub-ns-virtualrea-216091-b5b15ae4fa.servicebus.windows.net/"
+                    }
+                },
+                "routing": {
+                    "endpoints": {
+                        "serviceBusQueues": [],
+                        "serviceBusTopics": [],
+                        "eventHubs": []
+                    },
+                    "routes": [],
+                    "fallbackRoute": {
+                        "name": "$fallback",
+                        "source": "DeviceMessages",
+                        "condition": "true",
+                        "endpointNames": [
+                            "events"
+                        ],
+                        "isEnabled": true
+                    }
+                },
+                "storageEndpoints": {
+                    "$default": {
+                        "sasTtlAsIso8601": "PT1H",
+                        "connectionString": "",
+                        "containerName": ""
+                    }
+                },
+                "enableFileUploadNotifications": false,
+                "cloudToDevice": {
+                    "maxDeliveryCount": 10,
+                    "defaultTtlAsIso8601": "PT1H",
+                    "feedback": {
+                        "lockDurationAsIso8601": "PT1M",
+                        "ttlAsIso8601": "PT1H",
+                        "maxDeliveryCount": 10
+                    }
+                },
+                "features": "None"
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.ServiceBus/namespaces/VirtualRealityandIoT'.",
+            "type": "Microsoft.ServiceBus/namespaces",
+            "sku": {
+                "name": "Standard",
+                "tier": "Standard",
+                "capacity": 1
+            },
+            "kind": "Messaging",
+            "name": "[parameters('namespaces_VirtualRealityandIoT_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "East US 2",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "status": "Active",
+                "createdAt": "2017-09-09T14:57:54.36Z",
+                "serviceBusEndpoint": "[concat('https://', parameters('namespaces_VirtualRealityandIoT_name'),'.servicebus.windows.net:443/')]",
+                "enabled": true,
+                "updatedAt": "2017-09-09T14:58:18.353Z"
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.ServiceBus/namespaces/VirtualRealityandIoT/AuthorizationRules/RootManageSharedAccessKey'.",
+            "type": "Microsoft.ServiceBus/namespaces/AuthorizationRules",
+            "name": "[concat(parameters('namespaces_VirtualRealityandIoT_name'), '/', parameters('AuthorizationRules_RootManageSharedAccessKey_name'))]",
+            "apiVersion": "2015-08-01",
+            "scale": null,
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_VirtualRealityandIoT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.ServiceBus/namespaces/VirtualRealityandIoT/topics/virtualrealityandiot'.",
+            "type": "Microsoft.ServiceBus/namespaces/topics",
+            "name": "[concat(parameters('namespaces_VirtualRealityandIoT_name'), '/', parameters('topics_virtualrealityandiot_name'))]",
+            "apiVersion": "2015-08-01",
+            "location": "East US 2",
+            "scale": null,
+            "properties": {
+                "defaultMessageTimeToLive": "10675199.02:48:05.4775807",
+                "maxSizeInMegabytes": 16384,
+                "requiresDuplicateDetection": false,
+                "enableBatchedOperations": true,
+                "sizeInBytes": 0,
+                "filteringMessagesBeforePublishing": false,
+                "isAnonymousAccessible": false,
+                "status": "Active",
+                "createdAt": "2017-09-09T14:59:15.7317678Z",
+                "updatedAt": "2017-09-09T14:59:18.6676383Z",
+                "accessedAt": "2017-09-09T15:01:25.5607722Z",
+                "supportOrdering": false,
+                "countDetails": {
+                    "activeMessageCount": 0,
+                    "deadLetterMessageCount": 0,
+                    "scheduledMessageCount": 0,
+                    "transferMessageCount": 0,
+                    "transferDeadLetterMessageCount": 0
+                },
+                "subscriptionCount": 1,
+                "autoDeleteOnIdle": "10675199.02:48:05.4775807",
+                "enablePartitioning": true,
+                "isExpress": false,
+                "enableSubscriptionPartitioning": false,
+                "enableExpress": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_VirtualRealityandIoT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.ServiceBus/namespaces/VirtualRealityandIoT/topics/virtualrealityandiot/subscriptions/virtualrealityandiot'.",
+            "type": "Microsoft.ServiceBus/namespaces/topics/subscriptions",
+            "name": "[concat(parameters('namespaces_VirtualRealityandIoT_name'), '/', parameters('topics_virtualrealityandiot_name'), '/', parameters('subscriptions_virtualrealityandiot_name'))]",
+            "apiVersion": "2015-08-01",
+            "location": "East US 2",
+            "scale": null,
+            "properties": {
+                "lockDuration": "00:01:00",
+                "requiresSession": false,
+                "defaultMessageTimeToLive": "10675199.02:48:05.4775807",
+                "deadLetteringOnMessageExpiration": false,
+                "deadLetteringOnFilterEvaluationExceptions": true,
+                "messageCount": 0,
+                "maxDeliveryCount": 10,
+                "enableBatchedOperations": false,
+                "status": "Active",
+                "createdAt": "2017-09-09T15:01:22.6218032Z",
+                "updatedAt": "2017-09-09T15:01:25.5607722Z",
+                "accessedAt": "2017-09-09T15:01:25.5607722Z",
+                "countDetails": {
+                    "activeMessageCount": 0,
+                    "deadLetterMessageCount": 0,
+                    "scheduledMessageCount": 0,
+                    "transferMessageCount": 0,
+                    "transferDeadLetterMessageCount": 0
+                },
+                "autoDeleteOnIdle": "10675199.02:48:05.4775807",
+                "entityAvailabilityStatus": "Available"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_VirtualRealityandIoT_name'))]",
+                "[resourceId('Microsoft.ServiceBus/namespaces/topics', parameters('namespaces_VirtualRealityandIoT_name'), parameters('topics_virtualrealityandiot_name'))]"
+            ]
+        }
+    ]
+}

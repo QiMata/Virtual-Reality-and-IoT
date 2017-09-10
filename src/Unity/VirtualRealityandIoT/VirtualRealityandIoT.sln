@@ -1,12 +1,42 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualRealityandIoT.Plugins", "VirtualRealityandIoT.Plugins.csproj", "{1E03CEF3-BE21-32BA-F70E-C614C58153BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualRealityandIoT", "VirtualRealityandIoT.csproj", "{1A83EE1C-2984-44AB-694E-E2C87A76FB6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualRealityandIoT.Editor.Plugins", "VirtualRealityandIoT.Editor.Plugins.csproj", "{185AECF6-4A52-4781-76B2-47B959C10B11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualRealityandIoT.Editor", "VirtualRealityandIoT.Editor.csproj", "{119DF442-76B8-EBE9-C35B-B10A8DF869E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR.Client.20", "Library\SignalRUnity\source\SignalR.Client.20\SignalR.Client.20.csproj", "{42923E10-1CE8-4500-AAFA-476B18F321AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E03CEF3-BE21-32BA-F70E-C614C58153BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E03CEF3-BE21-32BA-F70E-C614C58153BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E03CEF3-BE21-32BA-F70E-C614C58153BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E03CEF3-BE21-32BA-F70E-C614C58153BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A83EE1C-2984-44AB-694E-E2C87A76FB6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A83EE1C-2984-44AB-694E-E2C87A76FB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A83EE1C-2984-44AB-694E-E2C87A76FB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A83EE1C-2984-44AB-694E-E2C87A76FB6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{185AECF6-4A52-4781-76B2-47B959C10B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{185AECF6-4A52-4781-76B2-47B959C10B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{185AECF6-4A52-4781-76B2-47B959C10B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{185AECF6-4A52-4781-76B2-47B959C10B11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119DF442-76B8-EBE9-C35B-B10A8DF869E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119DF442-76B8-EBE9-C35B-B10A8DF869E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119DF442-76B8-EBE9-C35B-B10A8DF869E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119DF442-76B8-EBE9-C35B-B10A8DF869E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42923E10-1CE8-4500-AAFA-476B18F321AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42923E10-1CE8-4500-AAFA-476B18F321AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42923E10-1CE8-4500-AAFA-476B18F321AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42923E10-1CE8-4500-AAFA-476B18F321AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
