@@ -16,14 +16,20 @@ namespace Assets.SignalRConnector
 
         public void MarshallToMainThread(Action action)
         {
-            _actions.Enqueue(action);
+            lock (_actions)
+            {
+                _actions.Enqueue(action);
+            }
         }
 
         public void OnMainThread()
         {
-            foreach (var action in _actions)
+            lock (_actions)
             {
-                action();
+                foreach (var action in _actions)
+                {
+                    action();
+                }
             }
         }
     }
