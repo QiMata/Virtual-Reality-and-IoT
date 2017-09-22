@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.ServiceBus.Messaging;
+using Newtonsoft.Json;
 
 namespace QiMata.HubSite
 {
     public class TopicHub : Hub
     {
         private const string TopicConnectionString =
-                "Endpoint=sb://virtualrealityandiot.servicebus.windows.net/;SharedAccessKeyName=admin;SharedAccessKey=/taHNNLG70LImDw1UNGNZLHr+eaKJX7pDsN/kF0P24k="
+                "{Your topic connection string here}"
             ;
 
         private SubscriptionClient _subscriptionClient;
@@ -24,7 +26,21 @@ namespace QiMata.HubSite
 
         private void DataRecieved(BrokeredMessage obj)
         {
-            Clients.All.NewData(obj.GetBody<object>());
+            using (var stream = obj.GetBody<Stream>())
+            {
+                var bytes = ReadFully(stream);
+                var str = Encoding.UTF8.GetString(bytes);
+                Clients.All.NewData(JsonConvert.DeserializeObject(str));
+            }
+        }
+
+        public static byte[] ReadFully(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
+            }
         }
     }
 }

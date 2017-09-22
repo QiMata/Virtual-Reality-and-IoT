@@ -27,5 +27,17 @@ namespace Assets.Scripts
         {
             _renderer.material.color = _initialColor;
         }
+
+        public void Toggle()
+        {
+            if (_renderer.material.color == Color.yellow)
+            {
+                TurnOff();
+            }
+            else
+            {
+                TurnOn();
+            }
+        }
     }
 }

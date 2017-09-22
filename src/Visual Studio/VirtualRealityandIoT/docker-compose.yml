@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  qimata.demodevice:
+    image: qimata.demodevice
+    build:
+      context: .\QiMata.DemoDevice
+      dockerfile: Dockerfile

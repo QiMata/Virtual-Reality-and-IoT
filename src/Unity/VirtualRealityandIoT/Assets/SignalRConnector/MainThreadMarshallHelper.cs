@@ -26,9 +26,9 @@ namespace Assets.SignalRConnector
         {
             lock (_actions)
             {
-                foreach (var action in _actions)
+                while (_actions.Any())
                 {
-                    action();
+                    _actions.Dequeue()();
                 }
             }
         }

@@ -31,5 +31,13 @@ namespace Assets.Scripts
                 lamp.TurnOff();
             }
         }
+
+        public void Toggle()
+        {
+            foreach (var lamp in _lamps)
+            {
+                lamp.Toggle();
+            }
+        }
     }
 }
