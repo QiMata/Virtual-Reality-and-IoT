@@ -2,8 +2,20 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "sites_VirtualRealityandIoT_name": {
+            "defaultValue": "VirtualRealityandIoT",
+            "type": "String"
+        },
         "IotHubs_VirtualRealityandIoT_name": {
             "defaultValue": "VirtualRealityandIoT",
+            "type": "String"
+        },
+        "serverfarms_VirtualRealityandIoT_name": {
+            "defaultValue": "VirtualRealityandIoT",
+            "type": "String"
+        },
+        "config_web_name": {
+            "defaultValue": "web",
             "type": "String"
         },
         "namespaces_VirtualRealityandIoT_name": {
@@ -14,12 +26,24 @@
             "defaultValue": "virtualrealityandiot",
             "type": "String"
         },
+        "hostNameBindings_virtualrealityandiot.azurewebsites.net_name": {
+            "defaultValue": "virtualrealityandiot.azurewebsites.net",
+            "type": "String"
+        },
         "AuthorizationRules_RootManageSharedAccessKey_name": {
             "defaultValue": "RootManageSharedAccessKey",
             "type": "String"
         },
+        "authorizationRules_admin_name": {
+            "defaultValue": "admin",
+            "type": "String"
+        },
         "subscriptions_virtualrealityandiot_name": {
             "defaultValue": "virtualrealityandiot",
+            "type": "String"
+        },
+        "authorizationRules_iothubroutes_VirtualRealityandIoT_name": {
+            "defaultValue": "iothubroutes_VirtualRealityandIoT",
             "type": "String"
         }
     },
@@ -80,10 +104,28 @@
                 "routing": {
                     "endpoints": {
                         "serviceBusQueues": [],
-                        "serviceBusTopics": [],
+                        "serviceBusTopics": [
+                            {
+                                "connectionString": "[concat('Endpoint=sb://virtualrealityandiot.servicebus.windows.net:5671/;SharedAccessKeyName=iothubroutes_', parameters('IotHubs_VirtualRealityandIoT_name'),';SharedAccessKey=****;EntityPath=virtualrealityandiot', parameters('IotHubs_VirtualRealityandIoT_name'))]",
+                                "name": "ToTopic",
+                                "id": "83acffff-ea29-4a89-87ca-8c6464d1aa22",
+                                "subscriptionId": "af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e",
+                                "resourceGroup": "[concat(parameters('IotHubs_VirtualRealityandIoT_name'),'virtualrealityandiot', parameters('IotHubs_VirtualRealityandIoT_name'))]"
+                            }
+                        ],
                         "eventHubs": []
                     },
-                    "routes": [],
+                    "routes": [
+                        {
+                            "name": "ToTopic",
+                            "source": "DeviceMessages",
+                            "condition": "true",
+                            "endpointNames": [
+                                "ToTopic"
+                            ],
+                            "isEnabled": true
+                        }
+                    ],
                     "fallbackRoute": {
                         "name": "$fallback",
                         "source": "DeviceMessages",
@@ -140,6 +182,80 @@
             "dependsOn": []
         },
         {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourceGroups/VirtualRealityandIoT/providers/Microsoft.Web/serverfarms/VirtualRealityandIoT'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "F1",
+                "tier": "Free",
+                "size": "F1",
+                "family": "F",
+                "capacity": 0
+            },
+            "kind": "app",
+            "name": "[parameters('serverfarms_VirtualRealityandIoT_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "East US 2",
+            "scale": null,
+            "properties": {
+                "name": "[parameters('serverfarms_VirtualRealityandIoT_name')]",
+                "workerTierName": null,
+                "adminSiteName": null,
+                "hostingEnvironmentProfile": null,
+                "perSiteScaling": false,
+                "reserved": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourceGroups/VirtualRealityandIoT/providers/Microsoft.Web/sites/VirtualRealityandIoT'.",
+            "type": "Microsoft.Web/sites",
+            "kind": "app",
+            "name": "[parameters('sites_VirtualRealityandIoT_name')]",
+            "apiVersion": "2016-08-01",
+            "location": "East US 2",
+            "tags": {
+                "hidden-related:/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.Web/serverfarms/VirtualRealityandIoT": "empty"
+            },
+            "scale": null,
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_VirtualRealityandIoT_name'),'virtualrealityandiot.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "virtualIP": null,
+                        "thumbprint": null,
+                        "toUpdate": null,
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(parameters('sites_VirtualRealityandIoT_name'),'virtualrealityandiot.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "virtualIP": null,
+                        "thumbprint": null,
+                        "toUpdate": null,
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_VirtualRealityandIoT_name'))]",
+                "reserved": false,
+                "siteConfig": null,
+                "scmSiteAlsoStopped": false,
+                "hostingEnvironmentProfile": null,
+                "clientAffinityEnabled": true,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "cloningInfo": null
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_VirtualRealityandIoT_name'))]"
+            ]
+        },
+        {
             "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.ServiceBus/namespaces/VirtualRealityandIoT/AuthorizationRules/RootManageSharedAccessKey'.",
             "type": "Microsoft.ServiceBus/namespaces/AuthorizationRules",
             "name": "[concat(parameters('namespaces_VirtualRealityandIoT_name'), '/', parameters('AuthorizationRules_RootManageSharedAccessKey_name'))]",
@@ -168,13 +284,13 @@
                 "maxSizeInMegabytes": 16384,
                 "requiresDuplicateDetection": false,
                 "enableBatchedOperations": true,
-                "sizeInBytes": 0,
+                "sizeInBytes": 1047,
                 "filteringMessagesBeforePublishing": false,
                 "isAnonymousAccessible": false,
                 "status": "Active",
                 "createdAt": "2017-09-09T14:59:15.7317678Z",
-                "updatedAt": "2017-09-09T14:59:18.6676383Z",
-                "accessedAt": "2017-09-09T15:01:25.5607722Z",
+                "updatedAt": "2017-09-22T12:56:53.5034931Z",
+                "accessedAt": "2017-09-27T16:02:05.4995968Z",
                 "supportOrdering": false,
                 "countDetails": {
                     "activeMessageCount": 0,
@@ -195,6 +311,42 @@
             ]
         },
         {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.ServiceBus/namespaces/VirtualRealityandIoT/topics/virtualrealityandiot/authorizationRules/admin'.",
+            "type": "Microsoft.ServiceBus/namespaces/topics/authorizationRules",
+            "name": "[concat(parameters('namespaces_VirtualRealityandIoT_name'), '/', parameters('topics_virtualrealityandiot_name'), '/', parameters('authorizationRules_admin_name'))]",
+            "apiVersion": "2015-08-01",
+            "location": "East US 2",
+            "scale": null,
+            "properties": {
+                "rights": [
+                    "Manage",
+                    "Listen",
+                    "Send"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_VirtualRealityandIoT_name'))]",
+                "[resourceId('Microsoft.ServiceBus/namespaces/topics', parameters('namespaces_VirtualRealityandIoT_name'), parameters('topics_virtualrealityandiot_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.ServiceBus/namespaces/VirtualRealityandIoT/topics/virtualrealityandiot/authorizationRules/iothubroutes_VirtualRealityandIoT'.",
+            "type": "Microsoft.ServiceBus/namespaces/topics/authorizationRules",
+            "name": "[concat(parameters('namespaces_VirtualRealityandIoT_name'), '/', parameters('topics_virtualrealityandiot_name'), '/', parameters('authorizationRules_iothubroutes_VirtualRealityandIoT_name'))]",
+            "apiVersion": "2015-08-01",
+            "location": "East US 2",
+            "scale": null,
+            "properties": {
+                "rights": [
+                    "Send"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_VirtualRealityandIoT_name'))]",
+                "[resourceId('Microsoft.ServiceBus/namespaces/topics', parameters('namespaces_VirtualRealityandIoT_name'), parameters('topics_virtualrealityandiot_name'))]"
+            ]
+        },
+        {
             "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.ServiceBus/namespaces/VirtualRealityandIoT/topics/virtualrealityandiot/subscriptions/virtualrealityandiot'.",
             "type": "Microsoft.ServiceBus/namespaces/topics/subscriptions",
             "name": "[concat(parameters('namespaces_VirtualRealityandIoT_name'), '/', parameters('topics_virtualrealityandiot_name'), '/', parameters('subscriptions_virtualrealityandiot_name'))]",
@@ -207,16 +359,16 @@
                 "defaultMessageTimeToLive": "10675199.02:48:05.4775807",
                 "deadLetteringOnMessageExpiration": false,
                 "deadLetteringOnFilterEvaluationExceptions": true,
-                "messageCount": 0,
+                "messageCount": 3,
                 "maxDeliveryCount": 10,
                 "enableBatchedOperations": false,
                 "status": "Active",
                 "createdAt": "2017-09-09T15:01:22.6218032Z",
                 "updatedAt": "2017-09-09T15:01:25.5607722Z",
-                "accessedAt": "2017-09-09T15:01:25.5607722Z",
+                "accessedAt": "2017-09-27T16:02:05.4995968Z",
                 "countDetails": {
                     "activeMessageCount": 0,
-                    "deadLetterMessageCount": 0,
+                    "deadLetterMessageCount": 3,
                     "scheduledMessageCount": 0,
                     "transferMessageCount": 0,
                     "transferDeadLetterMessageCount": 0
@@ -227,6 +379,136 @@
             "dependsOn": [
                 "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_VirtualRealityandIoT_name'))]",
                 "[resourceId('Microsoft.ServiceBus/namespaces/topics', parameters('namespaces_VirtualRealityandIoT_name'), parameters('topics_virtualrealityandiot_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourceGroups/VirtualRealityandIoT/providers/Microsoft.Web/sites/VirtualRealityandIoT/config/web'.",
+            "type": "Microsoft.Web/sites/config",
+            "name": "[concat(parameters('sites_VirtualRealityandIoT_name'), '/', parameters('config_web_name'))]",
+            "apiVersion": "2016-08-01",
+            "location": "East US 2",
+            "tags": {
+                "hidden-related:/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourcegroups/VirtualRealityandIoT/providers/Microsoft.Web/serverfarms/VirtualRealityandIoT": "empty"
+            },
+            "scale": null,
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php",
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "phpVersion": "5.6",
+                "pythonVersion": "",
+                "nodeVersion": "",
+                "linuxFxVersion": "",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "remoteDebuggingVersion": "VS2017",
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$VirtualRealityandIoT",
+                "publishingPassword": null,
+                "appSettings": null,
+                "metadata": null,
+                "connectionStrings": null,
+                "machineKey": null,
+                "handlerMappings": null,
+                "documentRoot": null,
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": false,
+                "javaVersion": null,
+                "javaContainer": null,
+                "javaContainerVersion": null,
+                "appCommandLine": "",
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": false,
+                        "virtualDirectories": null
+                    }
+                ],
+                "winAuthAdminState": 0,
+                "winAuthTenantState": 0,
+                "customAppPoolIdentityAdminState": false,
+                "customAppPoolIdentityTenantState": false,
+                "runtimeADUser": null,
+                "runtimeADUserPassword": null,
+                "loadBalancing": "LeastRequests",
+                "routingRules": [],
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "limits": null,
+                "autoHealEnabled": false,
+                "autoHealRules": {
+                    "triggers": null,
+                    "actions": null
+                },
+                "tracingOptions": null,
+                "vnetName": "",
+                "siteAuthEnabled": false,
+                "siteAuthSettings": {
+                    "enabled": null,
+                    "unauthenticatedClientAction": null,
+                    "tokenStoreEnabled": null,
+                    "allowedExternalRedirectUrls": null,
+                    "defaultProvider": null,
+                    "clientId": null,
+                    "clientSecret": null,
+                    "issuer": null,
+                    "allowedAudiences": null,
+                    "additionalLoginParams": null,
+                    "isAadAutoProvisioned": false,
+                    "googleClientId": null,
+                    "googleClientSecret": null,
+                    "googleOAuthScopes": null,
+                    "facebookAppId": null,
+                    "facebookAppSecret": null,
+                    "facebookOAuthScopes": null,
+                    "twitterConsumerKey": null,
+                    "twitterConsumerSecret": null,
+                    "microsoftAccountClientId": null,
+                    "microsoftAccountClientSecret": null,
+                    "microsoftAccountOAuthScopes": null
+                },
+                "cors": null,
+                "push": null,
+                "apiDefinition": null,
+                "autoSwapSlotName": null,
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": null
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_VirtualRealityandIoT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af58a3d5-8aa9-43e8-b0f7-0aef10b9a94e/resourceGroups/VirtualRealityandIoT/providers/Microsoft.Web/sites/VirtualRealityandIoT/hostNameBindings/virtualrealityandiot.azurewebsites.net'.",
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "name": "[concat(parameters('sites_VirtualRealityandIoT_name'), '/', parameters('hostNameBindings_virtualrealityandiot.azurewebsites.net_name'))]",
+            "apiVersion": "2016-08-01",
+            "location": "East US 2",
+            "scale": null,
+            "properties": {
+                "siteName": "VirtualRealityandIoT",
+                "domainId": null,
+                "hostNameType": "Verified"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_VirtualRealityandIoT_name'))]"
             ]
         }
     ]
