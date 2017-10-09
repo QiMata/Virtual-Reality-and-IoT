@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualRealityandIoT.Editor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualRealityandIoT.Editor", "VirtualRealityandIoT.Editor.csproj", "{119DF442-76B8-EBE9-C35B-B10A8DF869E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR.Client.20", "Library\SignalRUnity\source\SignalR.Client.20\SignalR.Client.20.csproj", "{42923E10-1CE8-4500-AAFA-476B18F321AA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +31,6 @@ Global
 		{119DF442-76B8-EBE9-C35B-B10A8DF869E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{119DF442-76B8-EBE9-C35B-B10A8DF869E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{119DF442-76B8-EBE9-C35B-B10A8DF869E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42923E10-1CE8-4500-AAFA-476B18F321AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42923E10-1CE8-4500-AAFA-476B18F321AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42923E10-1CE8-4500-AAFA-476B18F321AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42923E10-1CE8-4500-AAFA-476B18F321AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

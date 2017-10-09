@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
+using Assets.Scripts.Lamps;
 using Assets.SignalRConnector;
 using Assets.SignalRConnector.Models;
 using Newtonsoft.Json;
