@@ -120,8 +120,10 @@
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\Scripts\FireManager.cs" />
-    <Compile Include="Assets\Scripts\Lamp.cs" />
-    <Compile Include="Assets\Scripts\LampManager.cs" />
+    <Compile Include="Assets\Scripts\Lamps\Lamp.cs" />
+    <Compile Include="Assets\Scripts\Lamps\LampManager.cs" />
+    <Compile Include="Assets\Scripts\Lamps\LampMap.cs" />
+    <Compile Include="Assets\Scripts\Models\DeviceInfo.cs" />
     <Compile Include="Assets\Scripts\RainManager.cs" />
     <Compile Include="Assets\SignalRConnector\GameManager.cs" />
     <Compile Include="Assets\SignalRConnector\MainThreadMarshallHelper.cs" />
