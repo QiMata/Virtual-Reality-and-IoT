@@ -7,13 +7,14 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace QiMata.HubSite
 {
     public class TopicHub : Hub
     {
         private const string TopicConnectionString =
-                "{Your topic connection string here}"
+                "Endpoint=sb://virtualrealityandiot.servicebus.windows.net/;SharedAccessKeyName=admin;SharedAccessKey=/taHNNLG70LImDw1UNGNZLHr+eaKJX7pDsN/kF0P24k="
             ;
 
         private SubscriptionClient _subscriptionClient;
@@ -30,7 +31,22 @@ namespace QiMata.HubSite
             {
                 var bytes = ReadFully(stream);
                 var str = Encoding.UTF8.GetString(bytes);
-                Clients.All.NewData(JsonConvert.DeserializeObject(str));
+                var deserializedObject = JToken.Parse(str);
+
+
+                deserializedObject[$"Headers.{nameof(BrokeredMessage.ContentType)}"] = obj.ContentType;
+                deserializedObject[$"Headers.{nameof(BrokeredMessage.CorrelationId)}"] = obj.CorrelationId;
+                deserializedObject[$"Headers.{nameof(BrokeredMessage.Label)}"] = obj.Label;
+                deserializedObject[$"Headers.{nameof(BrokeredMessage.MessageId)}"] = obj.MessageId;
+                deserializedObject[$"Headers.{nameof(BrokeredMessage.SessionId)}"] = obj.SessionId;
+                deserializedObject[$"Headers.{nameof(BrokeredMessage.Size)}"] = obj.Size;
+                foreach (KeyValuePair<string, object> keyValuePair in obj.Properties)
+                {
+                    deserializedObject[$"Headers.Properties.{keyValuePair.Key}"] =
+                        JToken.FromObject(keyValuePair.Value);
+                }
+
+                Clients.All.NewData(deserializedObject);
             }
         }
 

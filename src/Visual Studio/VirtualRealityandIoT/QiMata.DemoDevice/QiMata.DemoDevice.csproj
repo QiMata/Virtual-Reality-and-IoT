@@ -97,12 +97,18 @@
     </Compile>
     <Compile Include="Drivers\ButtonDriver.cs" />
     <Compile Include="Drivers\DhtDriver.cs" />
+    <Compile Include="Drivers\Driver.cs" />
+    <Compile Include="Drivers\LedDriver.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Messages\ButtonPressedMessage.cs" />
     <Compile Include="Messages\TempAndHumidity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ButtonService.cs" />
+    <Compile Include="Services\ErrorService.cs" />
+    <Compile Include="Services\GatewayService.cs" />
+    <Compile Include="Services\OnService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

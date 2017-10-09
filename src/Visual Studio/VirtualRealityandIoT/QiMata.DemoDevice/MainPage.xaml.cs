@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using QiMata.CloudGateway;
 using QiMata.DemoDevice.Drivers;
 using QiMata.DemoDevice.Messages;
+using QiMata.DemoDevice.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -28,51 +29,39 @@ namespace QiMata.DemoDevice
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private Gateway _gateway;
-        private ButtonDriver _buttonDriver;
-        private DhtDriver _dhtDriver;
-
-        private Task _dontCollectMeTask;
+        private OnService _onService;
+        private ButtonService _buttonService;
+        private GatewayService _gatewayService;
+        private ErrorService _errorService;
 
         public MainPage()
         {
             this.InitializeComponent();
 
-            _gateway = new Gateway("{Your device connection string here}");
-            _buttonDriver = new ButtonDriver(21);
-            _dhtDriver = new DhtDriver(16);
-            _buttonDriver.ButtonPressedObservable.Subscribe(async x =>
-            {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
-                {
-                    TextBlock.Text = TextBlock.Text.Insert(0, $"Button Press Detected - {x.EventArgs.Edge} {DateTime.Now:T}\n");
-                });
-                await _gateway.Send(new ButtonPressedMessage
-                {
-                    RisingEdge = x.EventArgs.Edge == GpioPinEdge.RisingEdge
-                });
-            });
-            _dontCollectMeTask = Task.Run(BackgroundTask);
+            _onService = new OnService();
+            _onService.Start();
+
+            _buttonService = new ButtonService(OnButtonPressed);
+            _gatewayService = new GatewayService(new Gateway("HostName=VirtualRealityandIoT.azure-devices.net;DeviceId=TopLeftButton;SharedAccessKey=lJccg9m6g6evjAygA6K64W3OURDeOdT9V87/wlWA580="));
+            _errorService = new ErrorService();
         }
 
-        public async Task BackgroundTask()
+        private async Task OnButtonPressed()
         {
-            while (true)
+            try
             {
-                await Task.Delay(TimeSpan.FromSeconds(1));
-                var reading = await _dhtDriver.GetReadingAsync();
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    TextBlock.Text = TextBlock.Text.Insert(0, $"New Dht11 Reading Detected - Humidity:{reading.Humidity}, Temperature:{reading.Temperature}, IsValid:{reading.IsValid}, Timedout:{reading.TimedOut} -  {DateTime.Now:T}\n");
+                    TextBlock.Text = TextBlock.Text.Insert(0, $"Button Press Detected - {DateTime.Now:T}\n");
                 });
-                if (reading.IsValid)
+                await _gatewayService.SendMessage(new ButtonPressedMessage
                 {
-                    await _gateway.Send(new TempAndHumidity
-                    {
-                        Humidity = reading.Humidity,
-                        Temperature = reading.Temperature
-                    });
-                }
+                    RisingEdge = true
+                });
+            }
+            catch (Exception)
+            {
+                _errorService.SendError();
             }
         }
     }

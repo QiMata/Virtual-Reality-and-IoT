@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.SignalRConnector;
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
         _rainManager = new RainManager();
         _fireManager = new FireManager();
 
-		_connection = new HubConnection("{Your connection string here}");
+		_connection = new HubConnection("http://virtualrealityandiot.azurewebsites.net/");
         _proxy = _connection.CreateProxy("TopicHub");
         _proxy.Subscribe("NewData").Data += data =>
         {
