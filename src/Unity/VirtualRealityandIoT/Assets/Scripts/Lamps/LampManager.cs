@@ -12,7 +12,7 @@ namespace Assets.Scripts.Lamps
         public LampManager()
         {
             _lamps = new LampMap();
-
+            
             var backLeftLamp = GameObject.Find("torchere_1 (1)").GetComponentInChildren<Lamp>(true);
             var frontLeftLamp = GameObject.Find("torchere_1").GetComponentInChildren<Lamp>(true);
             var frontRightLamp = GameObject.Find("torchere_1 (2)").GetComponentInChildren<Lamp>(true);

@@ -42,7 +42,7 @@ namespace QiMata.DemoDevice
             _onService.Start();
 
             _buttonService = new ButtonService(OnButtonPressed);
-            _gatewayService = new GatewayService(new Gateway("HostName=VirtualRealityandIoT.azure-devices.net;DeviceId=TopLeftButton;SharedAccessKey=lJccg9m6g6evjAygA6K64W3OURDeOdT9V87/wlWA580="));
+            _gatewayService = new GatewayService(new Gateway("{Your connection string here}"));
             _errorService = new ErrorService();
         }
 

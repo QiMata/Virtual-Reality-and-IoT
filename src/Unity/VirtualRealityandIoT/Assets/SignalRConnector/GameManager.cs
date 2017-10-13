@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.Scripts.Lamps;
+using Assets.Scripts.Models;
 using Assets.SignalRConnector;
 using Assets.SignalRConnector.Models;
 using Newtonsoft.Json;
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
         _rainManager = new RainManager();
         _fireManager = new FireManager();
 
-		_connection = new HubConnection("http://virtualrealityandiot.azurewebsites.net/");
+		_connection = new HubConnection("{Your webserver hosting signalr}");
         _proxy = _connection.CreateProxy("TopicHub");
         _proxy.Subscribe("NewData").Data += data =>
         {
@@ -39,7 +40,22 @@ public class GameManager : MonoBehaviour
                 var buttonPressedMessage = dat.ToObject<ButtonPressedMessage>();
                 if (buttonPressedMessage.RisingEdge)
                 {
-                    _mainThreadMarshallHelper.MarshallToMainThread(() => _lampManager.Toggle());
+                    var deviceId = dat["Headers.Properties.iothub-connection-device-id"].ToObject<string>();
+
+                    _mainThreadMarshallHelper.MarshallToMainThread(() =>
+                    {
+                        if (deviceId == null)
+                        {
+                            _lampManager.Toggle();
+                        }
+                        else
+                        {
+                            _lampManager.Toggle(new DeviceInfo
+                            {
+                                DeviceId = deviceId
+                            });
+                        }
+                    });
                 }
             }
 

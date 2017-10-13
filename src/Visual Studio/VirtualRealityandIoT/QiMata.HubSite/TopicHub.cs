@@ -14,7 +14,7 @@ namespace QiMata.HubSite
     public class TopicHub : Hub
     {
         private const string TopicConnectionString =
-                "Endpoint=sb://virtualrealityandiot.servicebus.windows.net/;SharedAccessKeyName=admin;SharedAccessKey=/taHNNLG70LImDw1UNGNZLHr+eaKJX7pDsN/kF0P24k="
+                "{Your connection string here}"
             ;
 
         private SubscriptionClient _subscriptionClient;
