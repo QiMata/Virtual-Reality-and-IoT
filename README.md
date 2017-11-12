@@ -1,7 +1,7 @@
 # Virtual-Reality-and-IoT
 
 <a href="https://azuredeploy.net/" target="_blank"><img src="http://azuredeploy.net/deploybutton.png"/></a>
-<a href="https://www.qimata.com/wp-content/uploads/2017/03/Azure-IoT-Stream-Analytics-SignalR-.pptx" target="_blank"><img src="https://www.qimata.com/wp-content/uploads/2017/09/PowerPoint.png" height="60px" width="60px" /></a>
+<a href="https://jaredrhodescom.files.wordpress.com/2017/11/virtual-reality-with-azure-and-unity.pptx" target="_blank"><img src="https://jaredrhodescom.files.wordpress.com/2017/10/microsoft-powerpoint-document-icon-4-custom.png" height="60px" width="60px" /></a>
 
 # Resources
 
